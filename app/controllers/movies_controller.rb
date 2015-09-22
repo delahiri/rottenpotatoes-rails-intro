@@ -11,19 +11,20 @@ class MoviesController < ApplicationController
   end
 
   def index
-
-
         @allRatingType = Movie.all_ratings
 
+        if(params[:sort] != nil and params[:sort] != session[:sort])
+          session[:sort] = params[:sort]
+        end
+        if(params[:ratings] != nil and params[:ratings] != session[:ratings])
+        session[:ratings] = params[:ratings]
+        end
 
-        session[:sort] = get_array(params[:sort], session[:sort])
-        session[:ratings] = get_array(params[:ratings], session[:ratings])
+        session_params = { :sort => session[:sort], :ratings => session[:ratings] }
+        param_params = { :sort => params[:sort], :ratings => params[:ratings] }
 
-        expected_params = { :sort => session[:sort], :ratings => session[:ratings] }
-        actual_params = { :sort => params[:sort], :ratings => params[:ratings] }
-
-        if(expected_params != actual_params)
-          redirect_to(expected_params)
+        if(session_params != param_params)
+          redirect_to(session_params)
         end
 
 
@@ -54,10 +55,6 @@ class MoviesController < ApplicationController
         end
         @title_header = params[:sort]=='title' ?'hilite':nil
         @release_date_header = params[:sort]=='release_date' ?'hilite':nil
-
-
-
-
   end
 
   def new
@@ -88,12 +85,12 @@ class MoviesController < ApplicationController
     redirect_to movies_path
   end
 
-  private
-  def get_array(priority_array, stored_array)
-    if !priority_array.nil? and stored_array != priority_array
-      stored_array = priority_array
-    end
-    return stored_array
-  end
+  #private
+  #def get_array(priority_array, stored_array)
+  #  if !priority_array.nil? and stored_array != priority_array
+  #    stored_array = priority_array
+  #  end
+  #  return stored_array
+  #end
 
 end
