@@ -24,6 +24,7 @@ class MoviesController < ApplicationController
         param_params = { :sort => params[:sort], :ratings => params[:ratings] }
 
         if(session_params != param_params)
+          flash.keep
           redirect_to(session_params)
         end
 
