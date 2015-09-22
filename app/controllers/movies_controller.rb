@@ -11,8 +11,6 @@ class MoviesController < ApplicationController
   end
 
   def index
-    @title_header = params[:sort]=='title' ?'hilite':nil
-    @release_date_header = params[:sort]=='release_date' ?'hilite':nil
 
         @allRatingType = Movie.all_ratings
 
@@ -51,6 +49,9 @@ class MoviesController < ApplicationController
           @movies = Movie.all
             end
         end
+        @title_header = params[:sort]=='title' ?'hilite':nil
+        @release_date_header = params[:sort]=='release_date' ?'hilite':nil
+
   end
 
   def new
