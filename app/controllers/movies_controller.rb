@@ -12,46 +12,41 @@ class MoviesController < ApplicationController
 
   def index
 
+
         @allRatingType = Movie.all_ratings
 
-        if(session[:ratings] == nil and session[:sort]== nil)
-          sessionIsEmpty = true
+
+        session[:sort] = get_array(params[:sort], session[:sort])
+        session[:ratings] = get_array(params[:ratings], session[:ratings])
+
+        expected_params = { :sort => session[:sort], :ratings => session[:ratings] }
+        actual_params = { :sort => params[:sort], :ratings => params[:ratings] }
+
+        if(expected_params != actual_params)
+          redirect_to(expected_params)
         end
 
-        if(params[:ratings] != nil)
-          session[:ratings] = params[:ratings]
-        else
-          ratingIsEmpty = true
-        end
-        if(params[:sort] != nil)
-          session[:sort] = params[:sort]
-        else
-          sortIsEmpty = true
-        end
 
-        params[:ratings] = session[:ratings]
-        params[:sort] = session[:sort]
-
-        if(params[:ratings] != nil)
-          @sel_ratings =params[:ratings].keys
+        if(session[:ratings] != nil)
+          @sel_ratings =session[:ratings].keys
         else
           @sel_ratings =Movie.all_ratings
         end
 
-        if(params[:sort]=='title')
-          if (params[:ratings] )
+        if(session[:sort]=='title')
+          if (session[:ratings] )
             @movies = Movie.where("rating in (?)", @sel_ratings).order('title')
           else
             @movies = Movie.all.order('title')
             end
-        elsif(params[:sort]=='release_date')
-          if (params[:ratings])
+        elsif(session[:sort]=='release_date')
+          if (session[:ratings])
             @movies = Movie.where("rating in (?)", @sel_ratings).order('release_date')
              else
             @movies = Movie.all.order('release_date')
           end
         else
-          if (params[:ratings] )
+          if (session[:ratings] )
             @movies = Movie.where("rating in (?)", @sel_ratings)
             else
           @movies = Movie.all
@@ -59,10 +54,6 @@ class MoviesController < ApplicationController
         end
         @title_header = params[:sort]=='title' ?'hilite':nil
         @release_date_header = params[:sort]=='release_date' ?'hilite':nil
-
-    if (ratingIsEmpty or sortIsEmpty) and !sessionIsEmpty
-      redirect_to movies_path(:sort => params[:sort], :ratings => params[:ratings])
-    end
 
 
 
@@ -95,6 +86,14 @@ class MoviesController < ApplicationController
     @movie.destroy
     flash[:notice] = "Movie '#{@movie.title}' deleted."
     redirect_to movies_path
+  end
+
+  private
+  def get_array(priority_array, stored_array)
+    if !priority_array.nil? and stored_array != priority_array
+      stored_array = priority_array
+    end
+    return stored_array
   end
 
 end
