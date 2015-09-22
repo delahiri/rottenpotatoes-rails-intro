@@ -14,11 +14,19 @@ class MoviesController < ApplicationController
 
         @allRatingType = Movie.all_ratings
 
+        if(session[:ratings] == nil and session[:sort]== nil)
+          sessionIsEmpty = true
+        end
+
         if(params[:ratings] != nil)
           session[:ratings] = params[:ratings]
+        else
+          ratingIsEmpty = true
         end
         if(params[:sort] != nil)
           session[:sort] = params[:sort]
+        else
+          sortIsEmpty = true
         end
 
         params[:ratings] = session[:ratings]
@@ -51,6 +59,13 @@ class MoviesController < ApplicationController
         end
         @title_header = params[:sort]=='title' ?'hilite':nil
         @release_date_header = params[:sort]=='release_date' ?'hilite':nil
+
+    if (ratingIsEmpty or sortIsEmpty) and !sessionIsEmpty
+      redirect_to movies_path(:sort => params[:sort], :ratings => params[:ratings])
+    end
+
+
+
 
   end
 
