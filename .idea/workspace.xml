@@ -4,9 +4,7 @@
     <bookmark url="file://$PROJECT_DIR$/app/views/movies/index.html.haml" line="15" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="ef8b45e8-530e-424e-aad8-ff462fcea222" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="ef8b45e8-530e-424e-aad8-ff462fcea222" name="Default" comment="" />
     <ignored path="rottenpotatoes-rails-intro.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/components/" />
@@ -112,7 +110,7 @@
       <file leaf-file-name="movies_controller.rb" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/controllers/movies_controller.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.1861042">
+            <state vertical-scroll-proportion="0.96277916">
               <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
               <folding />
             </state>
@@ -869,7 +867,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/controllers/movies_controller.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1861042">
+        <state vertical-scroll-proportion="0.96277916">
           <caret line="67" column="27" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
           <folding />
         </state>
